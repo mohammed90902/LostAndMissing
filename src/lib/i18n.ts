@@ -4,6 +4,8 @@ import type { Listing } from "@/lib/types";
 export type Language = "en" | "fr";
 
 const FR: Record<string, string> = {
+  "A community lost-and-found for St. John's, Newfoundland and Labrador.":
+    "Un service communautaire d'objets perdus et trouvés à St. John's, Terre-Neuve-et-Labrador.",
   "FindBack home": "Accueil FindBack",
   Home: "Accueil",
   "Browse Items": "Parcourir les objets",

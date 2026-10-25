@@ -166,6 +166,13 @@ function RootComponent() {
       pathname === "/" && preferences.language === "en"
         ? "FindBack | Lost & Found"
         : `FindBack — ${translate(title, preferences.language)}`;
+    const description = translate(
+      "A community lost-and-found for St. John's, Newfoundland and Labrador.",
+      preferences.language,
+    );
+    document.querySelector('meta[name="description"]')?.setAttribute("content", description);
+    document.querySelector('meta[property="og:description"]')?.setAttribute("content", description);
+    document.querySelector('meta[property="og:title"]')?.setAttribute("content", document.title);
   }, [pathname, preferences.largeText, preferences.language, preferences.theme]);
 
   return (

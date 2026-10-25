@@ -424,7 +424,7 @@ export function MessagesPage() {
                     {t(selected.blocked ? "Unblock" : "Block")}
                   </Button>
                 </header>
-                <ol className="flex-1 space-y-3 overflow-y-auto p-4" aria-label="Messages">
+                <ol className="flex-1 space-y-3 overflow-y-auto p-4" aria-label={t("Messages")}>
                   {selected.messages.map((message) => (
                     <li
                       key={message.id}

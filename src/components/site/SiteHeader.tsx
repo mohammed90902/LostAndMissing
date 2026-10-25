@@ -33,15 +33,15 @@ export function SiteHeader() {
       >
         {t("Skip to main content")}
       </a>
-      <div className="container-app flex h-16 items-center gap-4">
+      <div className="container-app flex h-16 items-center gap-3">
         <Logo />
-        <nav aria-label={t("Main")} className="ml-6 hidden items-center gap-1 lg:flex">
+        <nav aria-label={t("Main")} className="ml-2 hidden shrink-0 items-center gap-1 lg:flex">
           {NAV.map((n) => (
             <Link
               key={n.to}
               to={n.to}
               activeOptions={{ exact: n.to === "/" }}
-              className="rounded-md px-3 py-2 font-semibold text-muted-foreground transition-colors hover:bg-muted hover:text-foreground data-[status=active]:text-primary data-[status=active]:bg-secondary"
+              className="shrink-0 whitespace-nowrap rounded-md px-2 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:bg-muted hover:text-foreground data-[status=active]:text-primary data-[status=active]:bg-secondary"
             >
               {t(n.label)}
             </Link>
@@ -86,7 +86,9 @@ export function SiteHeader() {
                 <span className="grid size-8 place-items-center rounded-full bg-secondary font-bold text-secondary-foreground">
                   {user.name.charAt(0)}
                 </span>
-                <span className="hidden sm:inline">{user.name}</span>
+                <span className="hidden max-w-36 truncate whitespace-nowrap sm:inline-block">
+                  {user.name}
+                </span>
                 {unread > 0 && (
                   <span className="rounded-full bg-lost px-2 text-xs text-lost-foreground">
                     {unread} {t("new")}
