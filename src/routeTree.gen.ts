@@ -10,33 +10,295 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as BrowseRouteImport } from './routes/browse'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as HelpRouteImport } from './routes/help'
+import { Route as HowItWorksRouteImport } from './routes/how-it-works'
+import { Route as MatchesRouteImport } from './routes/matches'
+import { Route as MessagesRouteImport } from './routes/messages'
+import { Route as MyReportsRouteImport } from './routes/my-reports'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as ReportRouteImport } from './routes/report'
+import { Route as SafetyRouteImport } from './routes/safety'
+import { Route as SavedRouteImport } from './routes/saved'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as SigninRouteImport } from './routes/signin'
+import { Route as ItemsIdRouteImport } from './routes/items.$id'
+import { Route as ReportFoundRouteImport } from './routes/report.found'
+import { Route as ReportLostRouteImport } from './routes/report.lost'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrowseRoute = BrowseRouteImport.update({
+  id: '/browse',
+  path: '/browse',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpRoute = HelpRouteImport.update({
+  id: '/help',
+  path: '/help',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HowItWorksRoute = HowItWorksRouteImport.update({
+  id: '/how-it-works',
+  path: '/how-it-works',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MatchesRoute = MatchesRouteImport.update({
+  id: '/matches',
+  path: '/matches',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MessagesRoute = MessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyReportsRoute = MyReportsRouteImport.update({
+  id: '/my-reports',
+  path: '/my-reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportRoute = ReportRouteImport.update({
+  id: '/report',
+  path: '/report',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SafetyRoute = SafetyRouteImport.update({
+  id: '/safety',
+  path: '/safety',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SavedRoute = SavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SigninRoute = SigninRouteImport.update({
+  id: '/signin',
+  path: '/signin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ItemsIdRoute = ItemsIdRouteImport.update({
+  id: '/items/$id',
+  path: '/items/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportFoundRoute = ReportFoundRouteImport.update({
+  id: '/found',
+  path: '/found',
+  getParentRoute: () => ReportRoute,
+} as any)
+const ReportLostRoute = ReportLostRouteImport.update({
+  id: '/lost',
+  path: '/lost',
+  getParentRoute: () => ReportRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
+  '/browse': typeof BrowseRoute
+  '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
+  '/help': typeof HelpRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/matches': typeof MatchesRoute
+  '/messages': typeof MessagesRoute
+  '/my-reports': typeof MyReportsRoute
+  '/privacy': typeof PrivacyRoute
+  '/profile': typeof ProfileRoute
+  '/report': typeof ReportRouteWithChildren
+  '/safety': typeof SafetyRoute
+  '/saved': typeof SavedRoute
+  '/settings': typeof SettingsRoute
+  '/signin': typeof SigninRoute
+  '/items/$id': typeof ItemsIdRoute
+  '/report/found': typeof ReportFoundRoute
+  '/report/lost': typeof ReportLostRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
+  '/browse': typeof BrowseRoute
+  '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
+  '/help': typeof HelpRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/matches': typeof MatchesRoute
+  '/messages': typeof MessagesRoute
+  '/my-reports': typeof MyReportsRoute
+  '/privacy': typeof PrivacyRoute
+  '/profile': typeof ProfileRoute
+  '/report': typeof ReportRouteWithChildren
+  '/safety': typeof SafetyRoute
+  '/saved': typeof SavedRoute
+  '/settings': typeof SettingsRoute
+  '/signin': typeof SigninRoute
+  '/items/$id': typeof ItemsIdRoute
+  '/report/found': typeof ReportFoundRoute
+  '/report/lost': typeof ReportLostRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
+  '/browse': typeof BrowseRoute
+  '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
+  '/help': typeof HelpRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/matches': typeof MatchesRoute
+  '/messages': typeof MessagesRoute
+  '/my-reports': typeof MyReportsRoute
+  '/privacy': typeof PrivacyRoute
+  '/profile': typeof ProfileRoute
+  '/report': typeof ReportRouteWithChildren
+  '/safety': typeof SafetyRoute
+  '/saved': typeof SavedRoute
+  '/settings': typeof SettingsRoute
+  '/signin': typeof SigninRoute
+  '/items/$id': typeof ItemsIdRoute
+  '/report/found': typeof ReportFoundRoute
+  '/report/lost': typeof ReportLostRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/browse'
+    | '/contact'
+    | '/faq'
+    | '/help'
+    | '/how-it-works'
+    | '/matches'
+    | '/messages'
+    | '/my-reports'
+    | '/privacy'
+    | '/profile'
+    | '/report'
+    | '/safety'
+    | '/saved'
+    | '/settings'
+    | '/signin'
+    | '/items/$id'
+    | '/report/found'
+    | '/report/lost'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/browse'
+    | '/contact'
+    | '/faq'
+    | '/help'
+    | '/how-it-works'
+    | '/matches'
+    | '/messages'
+    | '/my-reports'
+    | '/privacy'
+    | '/profile'
+    | '/report'
+    | '/safety'
+    | '/saved'
+    | '/settings'
+    | '/signin'
+    | '/items/$id'
+    | '/report/found'
+    | '/report/lost'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/browse'
+    | '/contact'
+    | '/faq'
+    | '/help'
+    | '/how-it-works'
+    | '/matches'
+    | '/messages'
+    | '/my-reports'
+    | '/privacy'
+    | '/profile'
+    | '/report'
+    | '/safety'
+    | '/saved'
+    | '/settings'
+    | '/signin'
+    | '/items/$id'
+    | '/report/found'
+    | '/report/lost'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRoute
+  BrowseRoute: typeof BrowseRoute
+  ContactRoute: typeof ContactRoute
+  FaqRoute: typeof FaqRoute
+  HelpRoute: typeof HelpRoute
+  HowItWorksRoute: typeof HowItWorksRoute
+  MatchesRoute: typeof MatchesRoute
+  MessagesRoute: typeof MessagesRoute
+  MyReportsRoute: typeof MyReportsRoute
+  PrivacyRoute: typeof PrivacyRoute
+  ProfileRoute: typeof ProfileRoute
+  ReportRoute: typeof ReportRouteWithChildren
+  SafetyRoute: typeof SafetyRoute
+  SavedRoute: typeof SavedRoute
+  SettingsRoute: typeof SettingsRoute
+  SigninRoute: typeof SigninRoute
+  ItemsIdRoute: typeof ItemsIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +310,182 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/browse': {
+      id: '/browse'
+      path: '/browse'
+      fullPath: '/browse'
+      preLoaderRoute: typeof BrowseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/help': {
+      id: '/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof HelpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/how-it-works': {
+      id: '/how-it-works'
+      path: '/how-it-works'
+      fullPath: '/how-it-works'
+      preLoaderRoute: typeof HowItWorksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/matches': {
+      id: '/matches'
+      path: '/matches'
+      fullPath: '/matches'
+      preLoaderRoute: typeof MatchesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/messages': {
+      id: '/messages'
+      path: '/messages'
+      fullPath: '/messages'
+      preLoaderRoute: typeof MessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-reports': {
+      id: '/my-reports'
+      path: '/my-reports'
+      fullPath: '/my-reports'
+      preLoaderRoute: typeof MyReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/report': {
+      id: '/report'
+      path: '/report'
+      fullPath: '/report'
+      preLoaderRoute: typeof ReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/safety': {
+      id: '/safety'
+      path: '/safety'
+      fullPath: '/safety'
+      preLoaderRoute: typeof SafetyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/saved': {
+      id: '/saved'
+      path: '/saved'
+      fullPath: '/saved'
+      preLoaderRoute: typeof SavedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signin': {
+      id: '/signin'
+      path: '/signin'
+      fullPath: '/signin'
+      preLoaderRoute: typeof SigninRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/items/$id': {
+      id: '/items/$id'
+      path: '/items/$id'
+      fullPath: '/items/$id'
+      preLoaderRoute: typeof ItemsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/report/found': {
+      id: '/report/found'
+      path: '/found'
+      fullPath: '/report/found'
+      preLoaderRoute: typeof ReportFoundRouteImport
+      parentRoute: typeof ReportRoute
+    }
+    '/report/lost': {
+      id: '/report/lost'
+      path: '/lost'
+      fullPath: '/report/lost'
+      preLoaderRoute: typeof ReportLostRouteImport
+      parentRoute: typeof ReportRoute
+    }
   }
 }
 
+interface ReportRouteChildren {
+  ReportFoundRoute: typeof ReportFoundRoute
+  ReportLostRoute: typeof ReportLostRoute
+}
+
+const ReportRouteChildren: ReportRouteChildren = {
+  ReportFoundRoute: ReportFoundRoute,
+  ReportLostRoute: ReportLostRoute,
+}
+
+const ReportRouteWithChildren =
+  ReportRoute._addFileChildren(ReportRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AdminRoute: AdminRoute,
+  BrowseRoute: BrowseRoute,
+  ContactRoute: ContactRoute,
+  FaqRoute: FaqRoute,
+  HelpRoute: HelpRoute,
+  HowItWorksRoute: HowItWorksRoute,
+  MatchesRoute: MatchesRoute,
+  MessagesRoute: MessagesRoute,
+  MyReportsRoute: MyReportsRoute,
+  PrivacyRoute: PrivacyRoute,
+  ProfileRoute: ProfileRoute,
+  ReportRoute: ReportRouteWithChildren,
+  SafetyRoute: SafetyRoute,
+  SavedRoute: SavedRoute,
+  SettingsRoute: SettingsRoute,
+  SigninRoute: SigninRoute,
+  ItemsIdRoute: ItemsIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
