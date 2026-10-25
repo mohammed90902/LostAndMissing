@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Home, Plus, Search, Sparkles, User } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
 const ITEMS = [
   { to: "/", label: "Home", icon: Home, exact: true },
@@ -10,9 +11,10 @@ const ITEMS = [
 ] as const;
 
 export function MobileNav() {
+  const { t } = useI18n();
   return (
     <nav
-      aria-label="Mobile"
+      aria-label={t("Mobile")}
       className="fixed inset-x-0 bottom-0 z-40 border-t bg-card pb-[env(safe-area-inset-bottom)] lg:hidden"
     >
       <ul className="grid grid-cols-5">
@@ -30,7 +32,7 @@ export function MobileNav() {
               ) : (
                 <it.icon className="size-6" aria-hidden="true" />
               )}
-              <span>{it.label}</span>
+              <span>{t(it.label)}</span>
             </Link>
           </li>
         ))}

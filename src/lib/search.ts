@@ -1,5 +1,6 @@
 import { categoryLabel } from "./catalog";
 import type { Category, ItemKind, Listing } from "./types";
+import { localizeListing, translate, type Language } from "./i18n";
 
 export interface SearchFilters {
   q?: string;
@@ -11,7 +12,12 @@ export interface SearchFilters {
   includeResolved?: boolean;
 }
 
-export function searchListings(listings: Listing[], f: SearchFilters, now = Date.now()): Listing[] {
+export function searchListings(
+  listings: Listing[],
+  f: SearchFilters,
+  now = Date.now(),
+  language: Language = "en",
+): Listing[] {
   const words = (f.q ?? "").toLowerCase().split(/\s+/).filter(Boolean);
   return listings
     .filter((l) => l.status !== "flagged" && l.status !== "closed")
@@ -22,7 +28,9 @@ export function searchListings(listings: Listing[], f: SearchFilters, now = Date
     .filter((l) => !f.within || now - new Date(l.date).getTime() <= f.within * 86400000)
     .filter((l) => {
       if (!words.length) return true;
-      const hay = `${l.title} ${l.description} ${categoryLabel(l.category)} ${l.category} ${l.location}`.toLowerCase();
+      const display = localizeListing(l, language);
+      const hay =
+        `${display.title} ${display.description} ${translate(categoryLabel(l.category), language)} ${l.category} ${translate(l.location, language)}`.toLowerCase();
       return words.every((w) => hay.includes(w));
     })
     .sort((a, b) => new Date(b.reportedAt).getTime() - new Date(a.reportedAt).getTime());

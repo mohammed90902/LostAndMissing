@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, CircleHelp, MapPin, ShieldCheck } from "lucide-react";
 import { PageHeader, Prose } from "@/components/site/Common";
 import { buttonVariants } from "@/components/ui/button";
-import { CITY } from "@/lib/catalog";
+import { useI18n } from "@/lib/i18n";
 
 export type InfoPageKey = "about" | "contact" | "faq" | "help" | "how" | "privacy" | "safety";
 
@@ -38,13 +38,14 @@ const TITLES: Record<InfoPageKey, { title: string; intro: string }> = {
 };
 
 export function InfoPage({ page }: { page: InfoPageKey }) {
+  const { t } = useI18n();
   const { title, intro } = TITLES[page];
   return (
     <>
       <PageHeader
-        eyebrow={page === "safety" ? "Your safety comes first" : undefined}
-        title={title}
-        intro={intro}
+        eyebrow={page === "safety" ? t("Your safety comes first") : undefined}
+        title={t(title)}
+        intro={t(intro)}
       />
       {page === "about" && <AboutContent />}
       {page === "how" && <HowContent />}
@@ -58,20 +59,26 @@ export function InfoPage({ page }: { page: InfoPageKey }) {
 }
 
 function AboutContent() {
+  const { t } = useI18n();
   return (
     <Prose>
       <p>
-        FindBack is a local lost-and-found prototype designed to help neighbours connect around
-        missing belongings. The sample board is set in {CITY} and includes example reports, matches,
-        and conversations.
+        {t(
+          "FindBack is a local lost-and-found prototype designed to help neighbours connect around missing belongings.",
+        )}{" "}
+        {t(
+          "The sample board is set in St. John's, NL and includes example reports, matches, and conversations.",
+        )}
       </p>
       <p>
-        The current version runs entirely in your browser. It demonstrates the user experience but
-        does not publish reports to a shared service or connect people across devices.
+        {t(
+          "The current version runs entirely in your browser. It demonstrates the user experience but does not publish reports to a shared service or connect people across devices.",
+        )}
       </p>
       <p>
-        Useful reports share a clear description and a general area while keeping a private
-        identifying detail for the real owner to confirm.
+        {t(
+          "Useful reports share a clear description and a general area while keeping a private identifying detail for the real owner to confirm.",
+        )}
       </p>
       <Link to="/browse" className={buttonVariants()}>
         Browse reports <ArrowRight />
@@ -81,6 +88,7 @@ function AboutContent() {
 }
 
 function HowContent() {
+  const { t } = useI18n();
   return (
     <Prose>
       <ol className="space-y-5">
@@ -103,7 +111,9 @@ function HowContent() {
           ],
         ].map(([heading, body], index) => (
           <li key={heading} className="ml-0 list-none border-l-4 border-primary pl-4">
-            <span className="text-sm font-bold text-primary">STEP {index + 1}</span>
+            <span className="text-sm font-bold text-primary">
+              {t("STEP")} {index + 1}
+            </span>
             <h2 className="mt-1">{heading}</h2>
             <p>{body}</p>
           </li>

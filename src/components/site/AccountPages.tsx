@@ -7,9 +7,11 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { formatTime } from "@/lib/format";
 import { isEmail } from "@/lib/validation";
 import { actions, useAppState } from "@/lib/store";
+import { localizeDemoMessage, localizeListing, useI18n } from "@/lib/i18n";
 
 export function SignInPage() {
   const { user } = useAppState();
+  const { t } = useI18n();
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -18,11 +20,11 @@ export function SignInPage() {
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!isEmail(email)) {
-      setError("Enter a valid email address.");
+      setError(t("Enter a valid email address."));
       return;
     }
     actions.signIn(name.trim(), email.trim());
-    toast.success("Demo profile ready");
+    toast.success(t("Demo profile ready"));
     navigate({ to: "/profile" });
   }
 
@@ -31,14 +33,14 @@ export function SignInPage() {
       <div className="container-app max-w-xl py-12">
         <EmptyState
           icon={UserRound}
-          title={`You're signed in as ${user.name}`}
+          title={`${t("You're signed in as")} ${user.name}`}
           action={
             <Link to="/profile" className={buttonVariants()}>
-              View profile
+              {t("View profile")}
             </Link>
           }
         >
-          This is a local demo profile. It is saved only in this browser.
+          {t("This is a local demo profile. It is saved only in this browser.")}
         </EmptyState>
       </div>
     );
@@ -47,18 +49,20 @@ export function SignInPage() {
   return (
     <>
       <PageHeader
-        title="Sign in to FindBack"
-        intro="Create a local demo profile to manage reports and messages."
+        title={t("Sign in to FindBack")}
+        intro={t("Create a local demo profile to manage reports and messages.")}
       />
       <div className="container-app max-w-xl py-8">
         <DemoNote className="mb-5">
-          This prototype does not verify your identity or send credentials to a server. Use any
-          email-shaped address for the local demo.
+          {t(
+            "This prototype does not verify your identity or send credentials to a server. Use any email-shaped address for the local demo.",
+          )}
         </DemoNote>
         <form onSubmit={submit} className="surface space-y-5 p-5 sm:p-7">
           <div>
             <label htmlFor="signin-name" className="field-label">
-              Name <span className="font-normal text-muted-foreground">(optional)</span>
+              {t("Name")}{" "}
+              <span className="font-normal text-muted-foreground">{t("(optional)")}</span>
             </label>
             <input
               id="signin-name"
@@ -67,12 +71,12 @@ export function SignInPage() {
               maxLength={50}
               autoComplete="name"
               className="mt-1 h-12 w-full rounded-md border border-input bg-background px-3"
-              placeholder="How should we address you?"
+              placeholder={t("How should we address you?")}
             />
           </div>
           <div>
             <label htmlFor="signin-email" className="field-label">
-              Email
+              {t("Email")}
             </label>
             <input
               id="signin-email"
@@ -86,7 +90,7 @@ export function SignInPage() {
               required
               aria-invalid={Boolean(error)}
               className="mt-1 h-12 w-full rounded-md border border-input bg-background px-3"
-              placeholder="you@example.com"
+              placeholder={t("you@example.com")}
             />
             {error && (
               <p className="mt-1 text-sm font-semibold text-destructive" role="alert">
@@ -95,7 +99,7 @@ export function SignInPage() {
             )}
           </div>
           <Button type="submit" className="w-full">
-            <LogIn /> Continue with demo profile
+            <LogIn /> {t("Continue with demo profile")}
           </Button>
         </form>
       </div>
@@ -105,6 +109,7 @@ export function SignInPage() {
 
 export function ProfilePage() {
   const { user, listings, conversations } = useAppState();
+  const { language, t } = useI18n();
   const [name, setName] = useState(user?.name ?? "");
   const [email, setEmail] = useState(user?.email ?? "");
   const [error, setError] = useState("");
@@ -120,22 +125,25 @@ export function ProfilePage() {
   function saveProfile(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!isEmail(email)) {
-      setError("Enter a valid email address.");
+      setError(t("Enter a valid email address."));
       return;
     }
     actions.updateProfile({ name: name.trim() || "FindBack member", email: email.trim() });
-    toast.success("Profile updated");
+    toast.success(t("Profile updated"));
     setError("");
   }
 
   return (
     <>
-      <PageHeader title="Your profile" intro="Update the name and email used in this local demo." />
+      <PageHeader
+        title={t("Your profile")}
+        intro={t("Update the name and email used in this local demo.")}
+      />
       <div className="container-app grid gap-6 py-8 lg:grid-cols-[minmax(0,1fr)_18rem]">
         <form onSubmit={saveProfile} className="surface space-y-5 p-5 sm:p-7">
           <div>
             <label htmlFor="profile-name" className="field-label">
-              Name
+              {t("Name")}
             </label>
             <input
               id="profile-name"
@@ -147,7 +155,7 @@ export function ProfilePage() {
           </div>
           <div>
             <label htmlFor="profile-email" className="field-label">
-              Email
+              {t("Email")}
             </label>
             <input
               id="profile-email"
@@ -166,24 +174,24 @@ export function ProfilePage() {
             )}
           </div>
           <Button type="submit">
-            <Check /> Save changes
+            <Check /> {t("Save changes")}
           </Button>
         </form>
         <aside className="surface p-5">
-          <p className="font-display text-lg font-bold">Your activity</p>
+          <p className="font-display text-lg font-bold">{t("Your activity")}</p>
           <dl className="mt-4 divide-y">
             <div className="flex justify-between py-3">
-              <dt className="text-muted-foreground">Reports</dt>
+              <dt className="text-muted-foreground">{t("Reports")}</dt>
               <dd className="font-bold">{mine}</dd>
             </div>
             <div className="flex justify-between py-3">
-              <dt className="text-muted-foreground">Conversations</dt>
+              <dt className="text-muted-foreground">{t("Conversations")}</dt>
               <dd className="font-bold">{conversations.length}</dd>
             </div>
             <div className="flex justify-between py-3">
-              <dt className="text-muted-foreground">Joined</dt>
+              <dt className="text-muted-foreground">{t("Joined")}</dt>
               <dd className="font-bold">
-                {new Date(user.joinedAt).toLocaleDateString("en-CA", {
+                {new Date(user.joinedAt).toLocaleDateString(language === "fr" ? "fr-CA" : "en-CA", {
                   month: "short",
                   year: "numeric",
                 })}
@@ -194,7 +202,7 @@ export function ProfilePage() {
             to="/my-reports"
             className="mt-3 inline-flex items-center gap-2 font-semibold text-primary underline"
           >
-            View my reports <ArrowRight className="size-4" />
+            {t("View my reports")} <ArrowRight className="size-4" />
           </Link>
         </aside>
       </div>
@@ -203,25 +211,33 @@ export function ProfilePage() {
 }
 
 function SignInPrompt() {
+  const { t } = useI18n();
   return (
-    <div className="container-app max-w-xl py-12">
-      <EmptyState
-        icon={UserRound}
-        title="Sign in to view your profile"
-        action={
-          <Link to="/signin" className={buttonVariants()}>
-            Create demo profile
-          </Link>
-        }
-      >
-        This prototype keeps profile information in this browser only.
-      </EmptyState>
-    </div>
+    <>
+      <PageHeader
+        title={t("Your profile")}
+        intro={t("Sign in to manage your reports and demo profile.")}
+      />
+      <div className="container-app max-w-xl py-8">
+        <EmptyState
+          icon={UserRound}
+          title={t("Sign in to view your profile")}
+          action={
+            <Link to="/signin" className={buttonVariants()}>
+              {t("Create demo profile")}
+            </Link>
+          }
+        >
+          {t("This prototype keeps profile information in this browser only.")}
+        </EmptyState>
+      </div>
+    </>
   );
 }
 
 export function SettingsPage() {
   const { preferences } = useAppState();
+  const { t } = useI18n();
   const settings = [
     {
       key: "emailUpdates" as const,
@@ -242,12 +258,14 @@ export function SettingsPage() {
   return (
     <>
       <PageHeader
-        title="Settings"
-        intro="Choose how the local prototype behaves in this browser."
+        title={t("Settings")}
+        intro={t("Choose how the local prototype behaves in this browser.")}
       />
       <div className="container-app max-w-3xl space-y-4 py-8">
         <DemoNote>
-          These settings are stored locally and do not control real email delivery or notifications.
+          {t(
+            "These settings are stored locally and do not control real email delivery or notifications.",
+          )}
         </DemoNote>
         <div className="surface divide-y px-5">
           {settings.map((setting) => (
@@ -256,8 +274,10 @@ export function SettingsPage() {
               className="flex min-h-20 cursor-pointer items-center justify-between gap-5 py-4"
             >
               <span>
-                <span className="block font-bold">{setting.title}</span>
-                <span className="block text-sm text-muted-foreground">{setting.description}</span>
+                <span className="block font-bold">{t(setting.title)}</span>
+                <span className="block text-sm text-muted-foreground">
+                  {t(setting.description)}
+                </span>
               </span>
               <input
                 type="checkbox"
@@ -272,9 +292,9 @@ export function SettingsPage() {
         </div>
         <section className="surface flex items-center justify-between gap-4 p-5">
           <span>
-            <span className="block font-bold">Reset demo data</span>
+            <span className="block font-bold">{t("Reset demo data")}</span>
             <span className="text-sm text-muted-foreground">
-              Restore the original sample reports and preferences.
+              {t("Restore the original sample reports and preferences.")}
             </span>
           </span>
           <Button
@@ -282,14 +302,14 @@ export function SettingsPage() {
             variant="outline"
             onClick={() => {
               actions.resetDemo();
-              toast.success("Demo data reset");
+              toast.success(t("Demo data reset"));
             }}
           >
-            Reset
+            {t("Reset")}
           </Button>
         </section>
         <Link to="/privacy" className="inline-flex items-center gap-2 text-primary underline">
-          <Settings2 className="size-4" /> Read the demo privacy notes
+          <Settings2 className="size-4" /> {t("Read the demo privacy notes")}
         </Link>
       </div>
     </>
@@ -298,6 +318,7 @@ export function SettingsPage() {
 
 export function MessagesPage() {
   const { conversations, listings } = useAppState();
+  const { language, t } = useI18n();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [draft, setDraft] = useState("");
   const selected =
@@ -319,21 +340,22 @@ export function MessagesPage() {
   return (
     <>
       <PageHeader
-        title="Messages"
-        intro="Coordinate a safe return without sharing personal details publicly."
+        title={t("Messages")}
+        intro={t("Coordinate a safe return without sharing personal details publicly.")}
       />
       <div className="container-app py-8">
         <DemoNote className="mb-5">
-          Messages are stored only in this browser. This is not a private or server-backed messaging
-          service.
+          {t(
+            "Messages are stored only in this browser. This is not a private or server-backed messaging service.",
+          )}
         </DemoNote>
         {conversations.length ? (
           <section
             className="grid overflow-hidden rounded-lg border bg-card md:min-h-136 md:grid-cols-[17rem_minmax(0,1fr)]"
-            aria-label="Conversations"
+            aria-label={t("Conversations")}
           >
-            <nav className="border-b md:border-b-0 md:border-r" aria-label="Conversation list">
-              <h2 className="border-b px-4 py-3 font-bold">Your conversations</h2>
+            <nav className="border-b md:border-b-0 md:border-r" aria-label={t("Conversation list")}>
+              <h2 className="border-b px-4 py-3 font-bold">{t("Your conversations")}</h2>
               <ul className="max-h-64 overflow-y-auto md:max-h-136">
                 {conversations.map((conversation) => {
                   const item = listings.find((report) => report.id === conversation.listingId);
@@ -358,10 +380,14 @@ export function MessagesPage() {
                           )}
                         </span>
                         <span className="mt-1 block truncate text-sm text-muted-foreground">
-                          {item?.title ?? "Report no longer available"}
+                          {item
+                            ? localizeListing(item, language).title
+                            : t("Report no longer available")}
                         </span>
                         <span className="mt-1 block truncate text-xs text-muted-foreground">
-                          {latest?.body ?? "No messages yet"}
+                          {latest
+                            ? localizeDemoMessage(latest.id, latest.body, language)
+                            : t("No messages yet")}
                         </span>
                       </button>
                     </li>
@@ -380,7 +406,7 @@ export function MessagesPage() {
                         params={{ id: listing.id }}
                         className="truncate text-sm text-primary underline"
                       >
-                        {listing.title}
+                        {localizeListing(listing, language).title}
                       </Link>
                     )}
                   </div>
@@ -391,11 +417,11 @@ export function MessagesPage() {
                     onClick={() => {
                       actions.setBlocked(selected.id, !selected.blocked);
                       toast.success(
-                        selected.blocked ? "Conversation unblocked" : "Conversation blocked",
+                        t(selected.blocked ? "Conversation unblocked" : "Conversation blocked"),
                       );
                     }}
                   >
-                    {selected.blocked ? "Unblock" : "Block"}
+                    {t(selected.blocked ? "Unblock" : "Block")}
                   </Button>
                 </header>
                 <ol className="flex-1 space-y-3 overflow-y-auto p-4" aria-label="Messages">
@@ -407,22 +433,24 @@ export function MessagesPage() {
                       <div
                         className={`max-w-[85%] rounded-lg px-4 py-3 ${message.fromMe ? "bg-primary text-primary-foreground" : "bg-muted"}`}
                       >
-                        <p className="whitespace-pre-wrap wrap-break-word">{message.body}</p>
+                        <p className="whitespace-pre-wrap wrap-break-word">
+                          {localizeDemoMessage(message.id, message.body, language)}
+                        </p>
                         <time className="mt-1 block text-right text-xs opacity-70">
-                          {formatTime(message.sentAt)}
+                          {formatTime(message.sentAt, language)}
                         </time>
                       </div>
                     </li>
                   ))}
                   {selected.messages.length === 0 && (
                     <li className="py-10 text-center text-muted-foreground">
-                      Start with a polite question about the report.
+                      {t("Start with a polite question about the report.")}
                     </li>
                   )}
                 </ol>
                 <form onSubmit={send} className="flex gap-2 border-t p-3">
                   <label htmlFor="message-draft" className="sr-only">
-                    Write a message
+                    {t("Write a message")}
                   </label>
                   <input
                     id="message-draft"
@@ -431,14 +459,14 @@ export function MessagesPage() {
                     disabled={selected.blocked}
                     maxLength={1000}
                     placeholder={
-                      selected.blocked ? "This conversation is blocked" : "Write a message"
+                      selected.blocked ? t("This conversation is blocked") : t("Write a message")
                     }
                     className="h-12 min-w-0 flex-1 rounded-md border border-input bg-background px-3"
                   />
                   <Button
                     type="submit"
                     disabled={!draft.trim() || selected.blocked}
-                    aria-label="Send message"
+                    aria-label={t("Send message")}
                   >
                     <Send />
                   </Button>
@@ -447,8 +475,8 @@ export function MessagesPage() {
             ) : null}
           </section>
         ) : (
-          <EmptyState icon={MessageCircle} title="No conversations yet">
-            Open a report and choose “Message reporter” to start a conversation.
+          <EmptyState icon={MessageCircle} title={t("No conversations yet")}>
+            {t("Open a report and choose “Message reporter” to start a conversation.")}
           </EmptyState>
         )}
       </div>

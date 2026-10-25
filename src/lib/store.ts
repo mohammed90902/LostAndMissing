@@ -22,7 +22,13 @@ const initialState: AppState = {
   saved: ["f-wallet-1"],
   conversations: SEED_CONVERSATIONS,
   user: null,
-  preferences: { emailUpdates: true, matchAlerts: true, largeText: false },
+  preferences: {
+    emailUpdates: true,
+    matchAlerts: true,
+    largeText: false,
+    language: "en",
+    theme: "light",
+  },
 };
 
 let state: AppState = initialState;
@@ -34,7 +40,14 @@ function load() {
   loaded = true;
   try {
     const raw = window.localStorage.getItem(KEY);
-    if (raw) state = { ...initialState, ...JSON.parse(raw) };
+    if (raw) {
+      const saved = JSON.parse(raw) as Partial<AppState>;
+      state = {
+        ...initialState,
+        ...saved,
+        preferences: { ...initialState.preferences, ...saved.preferences },
+      };
+    }
   } catch {
     /* ignore corrupt demo data */
   }
@@ -103,7 +116,13 @@ export const actions = {
   startConversation(listing: Listing): string {
     const existing = getSnapshot().conversations.find((c) => c.listingId === listing.id);
     if (existing) return existing.id;
-    const c: Conversation = { id: uid("c"), listingId: listing.id, otherName: listing.reporterName, messages: [], unread: 0 };
+    const c: Conversation = {
+      id: uid("c"),
+      listingId: listing.id,
+      otherName: listing.reporterName,
+      messages: [],
+      unread: 0,
+    };
     set((s) => ({ ...s, conversations: [c, ...s.conversations] }));
     return c.id;
   },
@@ -112,17 +131,31 @@ export const actions = {
       ...s,
       conversations: s.conversations.map((c) =>
         c.id === conversationId
-          ? { ...c, messages: [...c.messages, { id: uid("m"), fromMe: true, body, sentAt: new Date().toISOString() }] }
+          ? {
+              ...c,
+              messages: [
+                ...c.messages,
+                { id: uid("m"), fromMe: true, body, sentAt: new Date().toISOString() },
+              ],
+            }
           : c,
       ),
     }));
   },
   markRead(conversationId: string) {
     if (!getSnapshot().conversations.find((c) => c.id === conversationId)?.unread) return;
-    set((s) => ({ ...s, conversations: s.conversations.map((c) => (c.id === conversationId ? { ...c, unread: 0 } : c)) }));
+    set((s) => ({
+      ...s,
+      conversations: s.conversations.map((c) =>
+        c.id === conversationId ? { ...c, unread: 0 } : c,
+      ),
+    }));
   },
   setBlocked(conversationId: string, blocked: boolean) {
-    set((s) => ({ ...s, conversations: s.conversations.map((c) => (c.id === conversationId ? { ...c, blocked } : c)) }));
+    set((s) => ({
+      ...s,
+      conversations: s.conversations.map((c) => (c.id === conversationId ? { ...c, blocked } : c)),
+    }));
   },
   /** Demo sign-in: no password is stored or sent anywhere. */
   signIn(name: string, email: string) {

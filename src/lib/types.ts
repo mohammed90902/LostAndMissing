@@ -78,4 +78,6 @@ export interface Preferences {
   emailUpdates: boolean;
   matchAlerts: boolean;
   largeText: boolean;
+  language: "en" | "fr";
+  theme: "light" | "dark";
 }

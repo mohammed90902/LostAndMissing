@@ -1,20 +1,10 @@
-# Screenshot Exact Match
+# FindBack
 
-Implement exactly the screenshot and nothing else
-
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/3af38faf-ea59-4fa3-9269-2d0cb9e7c6da).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+FindBack is a community lost-and-found prototype for St. John's, Newfoundland and Labrador. Reports, profiles, saved items, and messages are demo data stored locally in the browser; this project does not connect to a shared backend.
 
 ## Development
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+You need Node.js and npm.
 
 ```sh
 git clone <this-repository-url>
