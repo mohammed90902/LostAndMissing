@@ -1,7 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ComingSoon } from "@/components/site/ComingSoon";
+import { AdminPage } from "@/components/site/MarketplacePages";
 
 export const Route = createFileRoute("/admin")({
-  head: () => ({ meta: [{ title: "FindBack — admin" }, { name: "description", content: "FindBack lost & found, St. John's." }] }),
-  component: () => <ComingSoon />,
+  head: () => ({
+    meta: [
+      { title: "FindBack — admin" },
+      { name: "description", content: "FindBack lost & found, St. John's." },
+    ],
+  }),
+  component: AdminPage,
 });

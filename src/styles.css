@@ -120,8 +120,10 @@
   --sidebar-accent-foreground: oklch(0.97 0.01 85);
   --sidebar-border: oklch(0.34 0.04 220);
   --sidebar-ring: oklch(0.6 0.1 195);
-  --shadow-card-value: 0 1px 2px oklch(0.3 0.04 220 / 6%), 0 4px 16px -6px oklch(0.3 0.04 220 / 10%);
-  --shadow-lift-value: 0 2px 4px oklch(0.3 0.04 220 / 8%), 0 16px 32px -12px oklch(0.3 0.06 220 / 22%);
+  --shadow-card-value:
+    0 1px 2px oklch(0.3 0.04 220 / 6%), 0 4px 16px -6px oklch(0.3 0.04 220 / 10%);
+  --shadow-lift-value:
+    0 2px 4px oklch(0.3 0.04 220 / 8%), 0 16px 32px -12px oklch(0.3 0.06 220 / 22%);
 }
 
 @layer base {
@@ -131,6 +133,9 @@
   html {
     -webkit-text-size-adjust: 100%;
   }
+  html.large-text {
+    font-size: 120%;
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -138,7 +143,10 @@
     font-size: 1.0625rem;
     line-height: 1.6;
   }
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
     line-height: 1.15;
@@ -148,7 +156,9 @@
     outline-offset: 2px;
   }
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       animation-duration: 0.01ms !important;
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
